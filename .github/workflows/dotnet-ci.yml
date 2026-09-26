@@ -1,0 +1,32 @@
+name: .NET CI
+
+on:
+  push:
+    branches:
+      - lab_1
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ./FitnessClub.sln
+
+      - name: Build solution
+        run: dotnet build ./FitnessClub.sln --no-restore --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test ./FitnessClub.sln --no-build --configuration Release --verbosity normal
