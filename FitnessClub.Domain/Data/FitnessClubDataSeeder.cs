@@ -152,34 +152,35 @@ public class FitnessClubDataSeeder
         var previousMonth = currentMonth.AddMonths(-1);
         var nextMonth = currentMonth.AddMonths(1);
 
-        static DateTime At(DateTime month, int day, int hour) => new(month.Year, month.Month, day, hour, 0, 0);
+        static DateTime At(DateTime month, int day, int hour) => new(month.Year, month.Month, day, hour, 0, 0);        
+        static DateTime End(DateTime start, int hours) => start.AddHours(hours);
 
         return
         [
-            new() { Id = 1, Client = clients[5], Trainer = trainers[1], StartsAt = At(currentMonth, 5, 10), Gym = gyms[0], IsTrial = false },
-            new() { Id = 2, Client = clients[6], Trainer = trainers[0], StartsAt = At(currentMonth, 12, 12), Gym = gyms[0], IsTrial = true },
-            new() { Id = 3, Client = clients[7], Trainer = trainers[0], StartsAt = At(currentMonth, 20, 18), Gym = gyms[0], IsTrial = false },
-            new() { Id = 4, Client = clients[8], Trainer = trainers[0], StartsAt = At(previousMonth, 8, 11), Gym = gyms[0], IsTrial = false },
-            new() { Id = 5, Client = clients[9], Trainer = trainers[0], StartsAt = At(nextMonth, 10, 15), Gym = gyms[0], IsTrial = true },
+            new() { Id = 1, Client = clients[5], Trainer = trainers[1], StartsAt = At(currentMonth, 5, 10), EndsAt = End(At(currentMonth, 5, 10), 1), Gym = gyms[0], IsTrial = false },
+            new() { Id = 2, Client = clients[6], Trainer = trainers[0], StartsAt = At(currentMonth, 12, 12), EndsAt = End(At(currentMonth, 12, 12), 2), Gym = gyms[0], IsTrial = true },
+            new() { Id = 3, Client = clients[7], Trainer = trainers[0], StartsAt = At(currentMonth, 20, 18), EndsAt = End(At(currentMonth, 20, 18), 1), Gym = gyms[0], IsTrial = false },
+            new() { Id = 4, Client = clients[8], Trainer = trainers[0], StartsAt = At(previousMonth, 8, 11), EndsAt = End(At(previousMonth, 8, 11), 2), Gym = gyms[0], IsTrial = false },
+            new() { Id = 5, Client = clients[9], Trainer = trainers[0], StartsAt = At(nextMonth, 10, 15), EndsAt = End(At(nextMonth, 10, 15), 1), Gym = gyms[0], IsTrial = true },
             new() { Id = 6, Client = clients[5], Trainer = trainers[0], StartsAt = now.AddMinutes(-30), EndsAt = now.AddMinutes(30), Gym = gyms[1], IsTrial = false },
 
-            new() { Id = 7, Client = clients[6], Trainer = trainers[0], StartsAt = At(currentMonth, 6, 11), Gym = gyms[1], IsTrial = false },
-            new() { Id = 8, Client = clients[7], Trainer = trainers[1], StartsAt = At(currentMonth, 9, 13), Gym = gyms[2], IsTrial = true },
-            new() { Id = 9, Client = clients[8], Trainer = trainers[1], StartsAt = At(currentMonth, 14, 17), Gym = gyms[3], IsTrial = false },
-            new() { Id = 10, Client = clients[9], Trainer = trainers[1], StartsAt = At(previousMonth, 16, 18), Gym = gyms[4], IsTrial = false },
-            new() { Id = 11, Client = clients[5], Trainer = trainers[1], StartsAt = At(nextMonth, 18, 19), Gym = gyms[5], IsTrial = false },
+            new() { Id = 7, Client = clients[6], Trainer = trainers[0], StartsAt = At(currentMonth, 6, 11), EndsAt = End(At(currentMonth, 6, 11), 1), Gym = gyms[1], IsTrial = false },
+            new() { Id = 8, Client = clients[7], Trainer = trainers[1], StartsAt = At(currentMonth, 9, 13), EndsAt = End(At(currentMonth, 9, 13), 2), Gym = gyms[2], IsTrial = true },
+            new() { Id = 9, Client = clients[8], Trainer = trainers[1], StartsAt = At(currentMonth, 14, 17), EndsAt = End(At(currentMonth, 14, 17), 1), Gym = gyms[3], IsTrial = false },
+            new() { Id = 10, Client = clients[9], Trainer = trainers[1], StartsAt = At(previousMonth, 16, 18), EndsAt = End(At(previousMonth, 16, 18), 2), Gym = gyms[4], IsTrial = false },
+            new() { Id = 11, Client = clients[5], Trainer = trainers[1], StartsAt = At(nextMonth, 18, 19), EndsAt = End(At(nextMonth, 18, 19), 1), Gym = gyms[5], IsTrial = false },
 
-            new() { Id = 12, Client = clients[6], Trainer = trainers[2], StartsAt = At(currentMonth, 8, 10), Gym = gyms[2], IsTrial = false },
-            new() { Id = 13, Client = clients[7], Trainer = trainers[2], StartsAt = At(currentMonth, 15, 16), Gym = gyms[3], IsTrial = false },
-            new() { Id = 14, Client = clients[8], Trainer = trainers[2], StartsAt = At(previousMonth, 19, 12), Gym = gyms[4], IsTrial = true },
-            new() { Id = 15, Client = clients[9], Trainer = trainers[2], StartsAt = At(nextMonth, 21, 20), Gym = gyms[5], IsTrial = false },
+            new() { Id = 12, Client = clients[6], Trainer = trainers[2], StartsAt = At(currentMonth, 8, 10), EndsAt = End(At(currentMonth, 8, 10), 2), Gym = gyms[2], IsTrial = false },
+            new() { Id = 13, Client = clients[7], Trainer = trainers[2], StartsAt = At(currentMonth, 15, 16), EndsAt = End(At(currentMonth, 15, 16), 1), Gym = gyms[3], IsTrial = false },
+            new() { Id = 14, Client = clients[8], Trainer = trainers[2], StartsAt = At(previousMonth, 19, 12), EndsAt = End(At(previousMonth, 19, 12), 2), Gym = gyms[4], IsTrial = true },
+            new() { Id = 15, Client = clients[9], Trainer = trainers[2], StartsAt = At(nextMonth, 21, 20), EndsAt = End(At(nextMonth, 21, 20), 1), Gym = gyms[5], IsTrial = false },
 
-            new() { Id = 16, Client = clients[5], Trainer = trainers[3], StartsAt = At(currentMonth, 11, 14), Gym = gyms[3], IsTrial = false },
-            new() { Id = 17, Client = clients[6], Trainer = trainers[3], StartsAt = At(currentMonth, 17, 19), Gym = gyms[4], IsTrial = true },
-            new() { Id = 18, Client = clients[7], Trainer = trainers[3], StartsAt = At(previousMonth, 22, 10), Gym = gyms[5], IsTrial = false },
+            new() { Id = 16, Client = clients[5], Trainer = trainers[3], StartsAt = At(currentMonth, 11, 14), EndsAt = End(At(currentMonth, 11, 14), 2), Gym = gyms[3], IsTrial = false },
+            new() { Id = 17, Client = clients[6], Trainer = trainers[3], StartsAt = At(currentMonth, 17, 19), EndsAt = End(At(currentMonth, 17, 19), 1), Gym = gyms[4], IsTrial = true },
+            new() { Id = 18, Client = clients[7], Trainer = trainers[3], StartsAt = At(previousMonth, 22, 10), EndsAt = End(At(previousMonth, 22, 10), 2), Gym = gyms[5], IsTrial = false },
 
-            new() { Id = 19, Client = clients[8], Trainer = trainers[4], StartsAt = At(currentMonth, 13, 8), Gym = gyms[4], IsTrial = false },
-            new() { Id = 20, Client = clients[9], Trainer = trainers[4], StartsAt = At(nextMonth, 24, 18), Gym = gyms[5], IsTrial = true }
+            new() { Id = 19, Client = clients[8], Trainer = trainers[4], StartsAt = At(currentMonth, 13, 8), EndsAt = End(At(currentMonth, 13, 8), 1), Gym = gyms[4], IsTrial = false },
+            new() { Id = 20, Client = clients[9], Trainer = trainers[4], StartsAt = At(nextMonth, 24, 18), EndsAt = End(At(nextMonth, 24, 18), 2), Gym = gyms[5], IsTrial = true }
         ];
     }
 }
