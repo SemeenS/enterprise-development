@@ -51,12 +51,7 @@ enterprise-development/
 │   └── FitnessClub.Domain.csproj
 │
 ├── FitnessClub.Tests/
-│   ├── ClientSubscriptionTests.cs     # клиенты с истёкшими абонементами
-│   ├── FitnessClubFixture.cs          # общие тестовые данные
-│   ├── GymAvailabilityTests.cs        # проверка доступности залов
-│   ├── MonthlyTrainingTests.cs        # занятия текущего месяца
-│   ├── TrainerExperienceTests.cs      # выборка тренеров по стажу
-│   ├── TrainerPopularityTests.cs      # пять наиболее популярных тренеров
+│   ├── FitnessClubTests.cs     # файл со всеми тестами
 │   └── FitnessClub.Tests.csproj
 │
 ├── FitnessClub.slnx                   # файл решения
