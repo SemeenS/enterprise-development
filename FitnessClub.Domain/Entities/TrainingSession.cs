@@ -8,22 +8,22 @@ public class TrainingSession
     /// <summary>
     /// Идентификатор.
     /// </summary>
-    public int Id { get; init; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Клиент, записанный на занятие.
     /// </summary>
-    public required Client Client { get; init; }
+    public required Client Client { get; set; }
 
     /// <summary>
     /// Тренер, проводящий занятие.
     /// </summary>
-    public required Trainer Trainer { get; init; }
+    public required Trainer Trainer { get; set; }
 
     /// <summary>
     /// Дата и время начала занятия.
     /// </summary>
-    public required DateTime StartsAt { get; init; }
+    public required DateTime StartsAt { get; set; }
 
     /// <summary>
     /// Дата и время окончания занятия.
@@ -33,10 +33,10 @@ public class TrainingSession
     /// <summary>
     /// Зал, в котором проходит занятие.
     /// </summary>
-    public required Gym Gym { get; init; }
+    public required Gym Gym { get; set; }
 
     /// <summary>
     /// Является ли занятие пробным.
     /// </summary>
-    public bool IsTrial { get; init; }
+    public bool IsTrial { get; set; }
 }

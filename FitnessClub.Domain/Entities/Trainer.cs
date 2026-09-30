@@ -8,10 +8,10 @@ public class Trainer : Person
     /// <summary>
     /// Специализация тренера.
     /// </summary>
-    public required Specialization Specialization { get; init; }
+    public required Specialization Specialization { get; set; }
 
     /// <summary>
     /// Стаж работы в годах.
     /// </summary>
-    public int WorkExperience { get; init; }
+    public int WorkExperience { get; set; }
 }

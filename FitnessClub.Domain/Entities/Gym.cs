@@ -8,10 +8,10 @@ public class Gym
     /// <summary>
     /// Идентификатор.
     /// </summary>
-    public int Id { get; init; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Название зала.
     /// </summary>
-    public required string Name { get; init; }
+    public required string Name { get; set; }
 }

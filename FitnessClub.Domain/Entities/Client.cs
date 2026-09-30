@@ -8,15 +8,15 @@ public class Client : Person
     /// <summary>
     /// Номер телефона.
     /// </summary>
-    public required string PhoneNumber { get; init; }
+    public required string PhoneNumber { get; set; }
 
     /// <summary>
     /// Дата начала абонемента.
     /// </summary>
-    public required DateOnly SubscriptionStartDate { get; init; }
+    public required DateOnly SubscriptionStartDate { get; set; }
 
     /// <summary>
     /// Дата окончания абонемента.
     /// </summary>
-    public required DateOnly SubscriptionEndDate { get; init; }
+    public required DateOnly SubscriptionEndDate { get; set; }
 }
