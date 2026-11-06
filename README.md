@@ -1,105 +1,97 @@
-# Лабораторная работа №1
+# Лабораторная работа №2 
 
-Учебный проект по дисциплине «Разработка корпоративных систем» на платформе .NET 10.
+Учебный проект по дисциплине «Разработка корпоративных приложений». Предметная область — **фитнес-клуб**.
 
 ## Описание проекта
 
-Проект представляет предметную область **фитнес-клуба**.
+Реализован REST API на ASP.NET Core. Сервер поддерживает CRUD-операции и предоставляет результаты пяти аналитических запросов.
 
-Система содержит информацию о клиентах, тренерах, специализациях тренеров, залах и записях клиентов на персональные занятия.
+В системе используются следующие сущности:
 
-В рамках лабораторной работы реализованы LINQ-запросы для получения необходимой информации по предметной области.
+- **Client** — клиент фитнес-клуба, включая данные абонемента.
+- **Trainer** — тренер, его специализация и стаж работы.
+- **Specialization** — справочник специализаций тренеров.
+- **Gym** — спортивный зал.
+- **TrainingSession** — запись клиента на персональное занятие.
 
----
+## Технологии
 
-## Технологический стек
+- C# и .NET 10
+- ASP.NET Core Web API
+- LINQ
+- InMemory-хранение данных в коллекциях
+- xUnit v3 для unit-тестов
+- OpenAPI
 
-- Платформа: .NET 10.0
-- Язык программирования: C#
-- Фреймворк тестирования: xUnit v3
-- Continuous Integration: GitHub Actions
-- Формат решения: SLNX
-
----
-
-## Структура лабораторной работы
+## Структура решения
 
 ```text
-enterprise-development/
-├── .github/
-│   └── workflows/
-│       └── dotnet-ci.yml              # конфигурация GitHub Actions
-│
-├── docs/
-│   └── test_results.png               # результаты выполнения unit-тестов
-│
-├── FitnessClub.Domain/
-│   ├── Data/
-│   │   └── FitnessClubDataSeeder.cs   # подготовка тестовых данных
-│   │
-│   ├── Entities/
-│   │   ├── Client.cs                  # модель клиента
-│   │   ├── Gym.cs                     # модель зала
-│   │   ├── Person.cs                  # базовый класс клиента и тренера
-│   │   ├── Specialization.cs          # специализация тренера
-│   │   ├── Trainer.cs                 # модель тренера
-│   │   └── TrainingSession.cs         # запись клиента на занятие
-│   │
-│   ├── Enums/
-│   │   └── Gender.cs                  # перечисление пола
-│   │
-│   └── FitnessClub.Domain.csproj
-│
-├── FitnessClub.Tests/
-│   ├── ClientSubscriptionTests.cs     # клиенты с истёкшими абонементами
-│   ├── FitnessClubFixture.cs          # общие тестовые данные
-│   ├── GymAvailabilityTests.cs        # проверка доступности залов
-│   ├── MonthlyTrainingTests.cs        # занятия текущего месяца
-│   ├── TrainerExperienceTests.cs      # выборка тренеров по стажу
-│   ├── TrainerPopularityTests.cs      # пять наиболее популярных тренеров
-│   └── FitnessClub.Tests.csproj
-│
-├── FitnessClub.slnx                   # файл решения
-└── README.md                          # документация лабораторной работы
+FitnessClub.slnx
+├── FitnessClub.Domain
+│   ├── Entities                  # сущности предметной области
+│   ├── Enums                     # перечисления
+│   ├── Interfaces                # IRepository<T>
+│   └── Data                      # FitnessClubDataSeeder
+├── FitnessClub.Infrastructure.InMemory
+│   └── Repositories              # реализация хранения данных в памяти
+├── FitnessClub.Api
+│   ├── Controllers               # HTTP-эндпоинты
+│   ├── Services                  # логика приложения и аналитика
+│   ├── Dtos                      # объекты для приёма и передачи данных
+│   ├── Program.cs                # настройка и запуск сервера
+│   └── FitnessClub.Api.http      # примеры HTTP-запросов
+└── FitnessClub.Tests
+    ├── FitnessClubFixture.cs     # подготовка тестовых данных
+    └── FitnessClubTests.cs       # тесты аналитических LINQ-запросов
 ```
 
-## Реализованные запросы
+## CRUD API
 
-1. Получение всех тренеров со стажем работы не менее 5 лет.
-2. Проверка доступности выбранного зала в текущий момент времени.
-3. Получение клиентов с истёкшим абонементом с сортировкой по ФИО.
-4. Получение занятий за текущий месяц в выбранном зале.
-5. Получение пяти наиболее популярных тренеров.
+Для каждой из пяти сущностей реализованы операции получения списка, получения по ID, создания, изменения и удаления.
 
----
+| Сущность | Базовый маршрут |
+|---|---|
+| Клиенты | `/api/clients` |
+| Тренеры | `/api/trainers` |
+| Специализации | `/api/specializations` |
+| Залы | `/api/gyms` |
+| Записи на занятия | `/api/training-sessions` |
 
-## Запуск и тестирование
 
-### Предварительные требования
+## Аналитические запросы
 
-- .NET 10.0 SDK
+| № | Назначение | HTTP-запрос |
+|---|---|---|
+| 1 | Клиенты с истёкшим абонементом, отсортированные по ФИО | `GET /api/clients/expired-subscriptions` |
+| 2 | Проверка доступности выбранного зала в текущий момент | `GET /api/gyms/{id}/availability` |
+| 3 | Занятия за текущий месяц в выбранном зале | `GET /api/training-sessions/current-month?gymId=1` |
+| 4 | Тренеры со стажем не менее пяти лет | `GET /api/trainers/experienced` |
+| 5 | Пять тренеров с наибольшим количеством записей на занятия | `GET /api/trainers/top-5` |
 
-### Клонирование репозитория
+## Хранение данных
+
+Данные хранятся в оперативной памяти через репозитории, реализующие интерфейс `IRepository<T>`. При запуске приложения `FitnessClubDataSeeder` создаёт исходный набор: по 10 клиентов, тренеров, специализаций и залов, а также 20 записей на занятия.
+
+## Запуск
+
+Требуется установленный **.NET 10 SDK**.
+
+Из корня репозитория выполнить:
 
 ```bash
-git clone https://github.com/SemeenS/enterprise-development.git
-cd enterprise-development
+dotnet restore FitnessClub.slnx
+dotnet build FitnessClub.slnx
+dotnet run --project FitnessClub.Api --launch-profile https
 ```
 
-### Восстановление зависимостей
+При запуске с профилем `https` сервер доступен по адресу `https://localhost:7165`.
+
+## Тестирование
+
+Для запуска существующих unit-тестов:
 
 ```bash
-dotnet restore ./FitnessClub.slnx
+dotnet test FitnessClub.slnx
 ```
 
-### Сборка проекта
-
-```bash
-dotnet build ./FitnessClub.slnx --no-restore --configuration Release
-```
-
-### Запуск unit-тестов
-
-```bash
-dotnet test ./FitnessClub.slnx --no-build --configuration Release --verbosity normal
-```
+В `FitnessClub.Tests` реализованы тесты пяти аналитических LINQ-запросов из первой лабораторной; проверка доступности зала включает два тестовых случая (всего **6**).
