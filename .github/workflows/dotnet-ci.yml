@@ -1,9 +1,11 @@
+
 name: .NET CI
 
 on:
   push:
     branches:
       - lab_1
+      - lab_2
 
   pull_request:
     branches:
